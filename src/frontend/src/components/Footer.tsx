@@ -1,17 +1,27 @@
 import { Link } from "@tanstack/react-router";
 import { MapPin, Phone, Shield, Star } from "lucide-react";
 
-const serviceAreas = [
-  "Surfers Paradise",
-  "Southport",
-  "Broadbeach",
-  "Burleigh Heads",
-  "Robina",
-  "Varsity Lakes",
-  "Coomera",
-  "Helensvale",
-  "Nerang",
-  "Tweed Heads",
+const allSuburbs = [
+  { name: "Surfers Paradise", slug: "surfers-paradise" },
+  { name: "Southport", slug: "southport" },
+  { name: "Broadbeach", slug: "broadbeach" },
+  { name: "Burleigh Heads", slug: "burleigh-heads" },
+  { name: "Robina", slug: "robina" },
+  { name: "Varsity Lakes", slug: "varsity-lakes" },
+  { name: "Coomera", slug: "coomera" },
+  { name: "Helensvale", slug: "helensvale" },
+  { name: "Nerang", slug: "nerang" },
+  { name: "Tweed Heads", slug: "tweed-heads" },
+  { name: "Mudgeeraba", slug: "mudgeeraba" },
+  { name: "Elanora", slug: "elanora" },
+  { name: "Palm Beach", slug: "palm-beach" },
+  { name: "Labrador", slug: "labrador" },
+  { name: "Biggera Waters", slug: "biggera-waters" },
+  { name: "Runaway Bay", slug: "runaway-bay" },
+  { name: "Hope Island", slug: "hope-island" },
+  { name: "Oxenford", slug: "oxenford" },
+  { name: "Molendinar", slug: "molendinar" },
+  { name: "Arundel", slug: "arundel" },
 ];
 
 export default function Footer() {
@@ -44,7 +54,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="container-wide py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div className="container-wide py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 xl:gap-8">
         {/* Brand */}
         <div className="lg:col-span-1">
           <img
@@ -118,14 +128,18 @@ export default function Footer() {
               <MapPin size={14} /> Service Areas
             </span>
           </h3>
-          <div className="flex flex-wrap gap-1.5">
-            {serviceAreas.map((area) => (
-              <span
-                key={area}
-                className="text-xs text-white/60 bg-white/10 px-2 py-0.5 rounded-full"
+          <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
+            {allSuburbs.map((suburb, i) => (
+              <Link
+                key={suburb.slug}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                to={`/suburbs/${suburb.slug}` as any}
+                data-ocid={`footer.suburbs.item.${i + 1}`}
+                className="text-xs text-white/60 hover:text-white transition-colors truncate"
+                aria-label={`Bond cleaning in ${suburb.name}`}
               >
-                {area}
-              </span>
+                {suburb.name}
+              </Link>
             ))}
           </div>
         </div>

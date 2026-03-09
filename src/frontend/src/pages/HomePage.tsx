@@ -138,27 +138,27 @@ const testimonials = [
   },
 ];
 
-const serviceAreas = [
-  "Surfers Paradise",
-  "Southport",
-  "Broadbeach",
-  "Burleigh Heads",
-  "Robina",
-  "Varsity Lakes",
-  "Coomera",
-  "Helensvale",
-  "Nerang",
-  "Tweed Heads",
-  "Mudgeeraba",
-  "Elanora",
-  "Palm Beach",
-  "Labrador",
-  "Biggera Waters",
-  "Runaway Bay",
-  "Hope Island",
-  "Oxenford",
-  "Molendinar",
-  "Arundel",
+const serviceAreas: { name: string; slug: string }[] = [
+  { name: "Surfers Paradise", slug: "surfers-paradise" },
+  { name: "Southport", slug: "southport" },
+  { name: "Broadbeach", slug: "broadbeach" },
+  { name: "Burleigh Heads", slug: "burleigh-heads" },
+  { name: "Robina", slug: "robina" },
+  { name: "Varsity Lakes", slug: "varsity-lakes" },
+  { name: "Coomera", slug: "coomera" },
+  { name: "Helensvale", slug: "helensvale" },
+  { name: "Nerang", slug: "nerang" },
+  { name: "Tweed Heads", slug: "tweed-heads" },
+  { name: "Mudgeeraba", slug: "mudgeeraba" },
+  { name: "Elanora", slug: "elanora" },
+  { name: "Palm Beach", slug: "palm-beach" },
+  { name: "Labrador", slug: "labrador" },
+  { name: "Biggera Waters", slug: "biggera-waters" },
+  { name: "Runaway Bay", slug: "runaway-bay" },
+  { name: "Hope Island", slug: "hope-island" },
+  { name: "Oxenford", slug: "oxenford" },
+  { name: "Molendinar", slug: "molendinar" },
+  { name: "Arundel", slug: "arundel" },
 ];
 
 const faqData = [
@@ -574,13 +574,62 @@ export default function HomePage() {
             We Service All Gold Coast Suburbs
           </h2>
           <div className="flex flex-wrap justify-center gap-2">
-            {serviceAreas.map((area) => (
-              <span
-                key={area}
-                className="text-sm text-primary bg-white border border-border px-3 py-1.5 rounded-full font-medium shadow-xs"
+            {serviceAreas.map((area, i) => (
+              <Link
+                key={area.slug}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                to={`/suburbs/${area.slug}` as any}
+                data-ocid={`areas.item.${i + 1}`}
+                className="text-sm text-primary bg-white border border-border px-3 py-1.5 rounded-full font-medium shadow-xs hover:bg-primary hover:text-white transition-colors"
+                aria-label={`Bond cleaning in ${area.name}`}
               >
-                {area}
-              </span>
+                {area.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── BOND CLEANING BY SUBURB ── */}
+      <section
+        className="py-16 md:py-20 bg-background"
+        aria-labelledby="suburbs-heading"
+      >
+        <div className="container-wide">
+          <div className="text-center mb-10">
+            <Badge className="mb-3 bg-secondary text-primary border-primary/20">
+              Service Locations
+            </Badge>
+            <h2 id="suburbs-heading" className="section-heading">
+              Bond Cleaning by Suburb
+            </h2>
+            <p className="section-subheading max-w-2xl mx-auto">
+              We cover every Gold Coast suburb. Click your suburb to learn how
+              Tru Bond Cleaning can get your full bond back.
+            </p>
+          </div>
+
+          <div
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3"
+            data-ocid="suburbs.list"
+          >
+            {serviceAreas.map((area, i) => (
+              <Link
+                key={area.slug}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                to={`/suburbs/${area.slug}` as any}
+                data-ocid={`suburbs.item.${i + 1}`}
+                className="group flex items-center gap-2 p-3 bg-white border border-border rounded-xl shadow-xs hover:shadow-card hover:border-primary/40 hover:-translate-y-0.5 transition-all duration-200"
+                aria-label={`Bond cleaning in ${area.name}`}
+              >
+                <MapPin
+                  size={14}
+                  className="text-primary flex-shrink-0 group-hover:text-accent transition-colors"
+                />
+                <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors leading-snug">
+                  {area.name}
+                </span>
+              </Link>
             ))}
           </div>
         </div>
